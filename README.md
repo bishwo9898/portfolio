@@ -1,36 +1,175 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Modern Portfolio Website
 
-## Getting Started
+A beautiful, interactive portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features a contact form with nodemailer integration, smooth animations, and full dark mode support.
 
-First, run the development server:
+## ✨ Features
+
+- 🎨 Modern, clean, and professional design
+- 📱 Fully responsive across all devices
+- 🌓 Dark mode support
+- 💌 Working contact form with email integration
+- ⚡ Fast page loads with Next.js 16
+- 🎭 Smooth animations and transitions
+- 📊 Project showcase section
+- 🛠️ Skills display with categorized tech stack
+- 🎯 Interactive navigation with smooth scrolling
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository (or you're already here!)
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up email configuration:
+   - Copy `.env.local.example` to `.env.local`
+   - Add your email credentials (see Email Setup section below)
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📧 Email Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To enable the contact form:
 
-## Learn More
+1. Create a `.env.local` file in the root directory:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cp .env.local.example .env.local
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. For Gmail users:
+   - Enable 2-factor authentication on your Google account
+   - Generate an App Password at https://myaccount.google.com/apppasswords
+   - Add your credentials to `.env.local`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASS=your-app-specific-password
+   ```
 
-## Deploy on Vercel
+3. For other email providers, update the service in `src/app/api/contact/route.ts`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Customization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Personal Information
+
+Edit `src/app/page.tsx` to update:
+
+- Your name (line 153)
+- Profile photo (line 140-143, uncomment and add your image)
+- Bio and description
+- Contact information
+- Social media links
+- Project details
+- Skills and technologies
+
+### Add Your Profile Photo
+
+1. Add your image to the `/public` folder (e.g., `profile.jpg`)
+2. Uncomment line 143 in `page.tsx` and update:
+
+```tsx
+<Image src="/profile.jpg" alt="Your Name" fill className="object-cover" />
+```
+
+### Colors and Styling
+
+The design uses a gradient color scheme with blue, indigo, and purple tones. To customize:
+
+- Edit Tailwind classes in components
+- Modify `globals.css` for global styles
+- Update gradient colors throughout `page.tsx`
+
+## 📁 Project Structure
+
+```
+portfolio/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── contact/
+│   │   │       └── route.ts      # Contact form API endpoint
+│   │   ├── globals.css            # Global styles & animations
+│   │   ├── layout.tsx             # Root layout
+│   │   └── page.tsx               # Main portfolio page
+│   └── ...
+├── public/                        # Static assets
+├── .env.local.example             # Environment variables template
+└── package.json
+```
+
+## 🛠️ Built With
+
+- [Next.js 16](https://nextjs.org/) - React framework
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS 4](https://tailwindcss.com/) - Styling
+- [Nodemailer](https://nodemailer.com/) - Email functionality
+- [Geist Font](https://vercel.com/font) - Typography
+
+## 📦 Scripts
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm start        # Start production server
+npm run lint     # Run ESLint
+```
+
+## 🚀 Deployment
+
+### Deploy on Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import your repository on [Vercel](https://vercel.com)
+3. Add environment variables in Vercel dashboard:
+   - `EMAIL_USER`
+   - `EMAIL_PASS`
+4. Deploy!
+
+### Other Platforms
+
+The app can be deployed to any platform that supports Next.js:
+
+- Netlify
+- Railway
+- AWS Amplify
+- DigitalOcean App Platform
+
+Make sure to add your environment variables to the deployment platform.
+
+## 📝 License
+
+This project is open source and available for personal use. Feel free to customize it for your own portfolio!
+
+## 🤝 Contributing
+
+Feel free to fork this project and customize it for your own use. If you have suggestions for improvements, please open an issue or submit a pull request.
+
+## 💡 Tips
+
+- Replace placeholder text with your actual information
+- Add real project screenshots or demos
+- Link to your actual GitHub and social media profiles
+- Keep your resume PDF in the `/public` folder
+- Test the contact form before deployment
+- Optimize images before adding them
+
+---
+
+Built with ❤️ using Next.js and Tailwind CSS
