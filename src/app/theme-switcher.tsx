@@ -3,10 +3,8 @@
 import { useTheme, type Theme } from "./theme-context";
 
 const THEMES = [
-  { id: "colorful" as Theme, name: "Colorful", icon: "🎨", emoji: "✨" },
   { id: "light" as Theme, name: "Light", icon: "☀️", emoji: "🌸" },
   { id: "dark" as Theme, name: "Dark", icon: "🌙", emoji: "⭐" },
-  { id: "elegant" as Theme, name: "Elegant", icon: "💎", emoji: "✨" },
 ];
 
 export function ThemeSwitcher() {
@@ -43,13 +41,6 @@ function getThemeButtonStyle(themeId: Theme, isActive: boolean): string {
   const baseStyle = "transition-all duration-300";
 
   switch (themeId) {
-    case "colorful":
-      return `${baseStyle} ${
-        isActive
-          ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white ring-pink-300"
-          : "bg-gradient-to-r from-yellow-300 to-orange-400 text-white hover:from-yellow-400 hover:to-orange-500"
-      }`;
-
     case "light":
       return `${baseStyle} ${
         isActive
@@ -62,13 +53,6 @@ function getThemeButtonStyle(themeId: Theme, isActive: boolean): string {
         isActive
           ? "bg-gradient-to-r from-slate-800 to-gray-900 text-cyan-300 ring-cyan-400"
           : "bg-gradient-to-r from-slate-700 to-gray-800 text-gray-300 hover:from-slate-600 hover:to-gray-700"
-      }`;
-
-    case "elegant":
-      return `${baseStyle} ${
-        isActive
-          ? "bg-gradient-to-r from-amber-600 to-yellow-600 text-white ring-amber-300"
-          : "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600"
       }`;
 
     default:

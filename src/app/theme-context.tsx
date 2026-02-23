@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-export type Theme = "colorful" | "light" | "dark" | "elegant";
+export type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
@@ -12,16 +12,13 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("colorful");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // Load theme from localStorage on mount
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (
-      savedTheme &&
-      ["colorful", "light", "dark", "elegant"].includes(savedTheme)
-    ) {
+    if (savedTheme && ["light", "dark"].includes(savedTheme)) {
       setThemeState(savedTheme);
     }
     setMounted(true);

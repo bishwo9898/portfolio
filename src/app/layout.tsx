@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Fredoka,
-  Poppins,
-  Inter,
-  Cormorant_Garamond,
-} from "next/font/google";
+import { Geist, Geist_Mono, Montserrat, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./theme-context";
 import { ThemeSwitcher } from "./theme-switcher";
@@ -22,28 +15,16 @@ const geistMono = Geist_Mono({
 });
 
 // Theme-specific fonts
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -60,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fredoka.variable} ${poppins.variable} ${inter.variable} ${cormorant.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${robotoMono.variable} antialiased`}
       >
         <ThemeProvider>
           {children}
