@@ -168,7 +168,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         id="home"
-        className="min-h-screen flex items-center justify-center pt-16 px-6 lg:px-8 relative overflow-hidden"
+        className="min-h-screen flex items-start justify-center pt-44 lg:pt-48 px-6 lg:px-8 relative overflow-hidden"
       >
         {/* Subtle Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
