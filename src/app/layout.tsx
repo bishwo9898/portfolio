@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Montserrat, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./theme-context";
 import { ThemeSwitcher } from "./theme-switcher";
+import { LampToggle } from "./lamp-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${robotoMono.variable} antialiased`}
       >
         <ThemeProvider>
+          <LampToggle />
           {children}
           <ThemeSwitcher />
         </ThemeProvider>

@@ -1,70 +1,78 @@
-import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+
+const RECEIVER_EMAILS = [
+  "bishwo9898@gmail.com",
+  "bishwo.dallakoti@centre.edu",
+];
 
 export async function POST(request: NextRequest) {
   try {
     const { name, email, subject, message } = await request.json();
 
-    // Validate input
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
+        { error: "All fields are required" },
+        { status: 400 },
       );
     }
 
-    // Create transporter
-    // Note: You'll need to add these environment variables to your .env.local file:
-    // EMAIL_USER=your-email@gmail.com
-    // EMAIL_PASS=your-app-specific-password
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return NextResponse.json(
+        { error: "Email service is not configured" },
+        { status: 500 },
+      );
+    }
+
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // or your email service
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Email options
-    const mailOptions = {
+    await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Send to yourself
+      to: RECEIVER_EMAILS.join(","),
       subject: `Portfolio Contact: ${subject}`,
+      replyTo: email,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-          <h2 style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">New Contact Form Submission</h2>
-          
-          <div style="margin: 20px 0;">
-            <p style="margin: 10px 0;"><strong style="color: #4f46e5;">Name:</strong> ${name}</p>
-            <p style="margin: 10px 0;"><strong style="color: #4f46e5;">Email:</strong> ${email}</p>
-            <p style="margin: 10px 0;"><strong style="color: #4f46e5;">Subject:</strong> ${subject}</p>
-          </div>
-          
-          <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <p style="margin: 0;"><strong style="color: #4f46e5;">Message:</strong></p>
-            <p style="margin: 10px 0; line-height: 1.6;">${message}</p>
-          </div>
-          
-          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; color: #6b7280; font-size: 12px;">
-            <p>This email was sent from your portfolio website contact form.</p>
+        <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 10px;">
+          <h2 style="margin: 0 0 12px; color: #111827;">New Contact Form Submission</h2>
+          <p style="margin: 6px 0;"><strong>Name:</strong> ${name}</p>
+          <p style="margin: 6px 0;"><strong>Email:</strong> ${email}</p>
+          <p style="margin: 6px 0;"><strong>Subject:</strong> ${subject}</p>
+          <div style="margin-top: 14px; padding: 14px; border-radius: 8px; background: #f9fafb; border: 1px solid #e5e7eb;">
+            <p style="margin: 0 0 8px;"><strong>Message:</strong></p>
+            <p style="margin: 0; line-height: 1.6; white-space: pre-wrap;">${message}</p>
           </div>
         </div>
       `,
-      replyTo: email,
-    };
+    });
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Thank you for reaching out",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 10px;">
+          <h2 style="margin: 0 0 12px; color: #111827;">Thanks for your message, ${name}!</h2>
+          <p style="margin: 8px 0; color: #374151; line-height: 1.6;">Thank you for reaching out, I will get back to you shortly.</p>
+          <p style="margin: 16px 0 0; color: #6b7280; font-size: 14px;">- Bishwo Biraj Dallakoti</p>
+        </div>
+      `,
+    });
 
     return NextResponse.json(
-      { message: 'Email sent successfully' },
-      { status: 200 }
+      { message: "Email sent successfully" },
+      { status: 200 },
     );
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error("Error sending email:", error);
     return NextResponse.json(
-      { error: 'Failed to send email' },
-      { status: 500 }
+      { error: "Failed to send email" },
+      { status: 500 },
     );
   }
 }

@@ -77,13 +77,17 @@ export default function Home() {
 
   return (
     <div
-      className={`min-h-screen ${theme === "light" ? "bg-white text-gray-900" : "bg-black text-white"}`}
+      className={`min-h-screen ${
+        theme === "light"
+          ? "bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 text-gray-900"
+          : "bg-black text-white"
+      }`}
     >
       {/* Navigation */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b ${
           theme === "light"
-            ? "bg-white/80 border-gray-200/50"
+            ? "bg-amber-50/80 border-yellow-200/50"
             : "bg-black/80 border-white/5"
         }`}
       >
@@ -208,10 +212,10 @@ export default function Home() {
                     }`}
                   >
                     <Image
-                      src="/me.jpeg"
+                      src={theme === "light" ? "/me.jpeg" : "/white_cap.png"}
                       alt="Bishwo Biraj Dallakoti"
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500"
                       priority
                       quality={95}
                       sizes="(max-width: 1024px) 256px, 320px"
@@ -307,7 +311,7 @@ export default function Home() {
       <section
         id="skills"
         className={`min-h-screen flex items-center py-20 px-6 lg:px-8 ${
-          theme === "light" ? "bg-gray-50" : "bg-zinc-950"
+          theme === "light" ? "bg-amber-50" : "bg-zinc-950"
         }`}
       >
         <div className="max-w-6xl mx-auto w-full">
@@ -413,7 +417,9 @@ export default function Home() {
       <section
         id="projects"
         className={`min-h-screen flex items-center py-20 px-6 lg:px-8 ${
-          theme === "light" ? "bg-white" : "bg-black"
+          theme === "light"
+            ? "bg-gradient-to-br from-amber-50 to-yellow-50"
+            : "bg-black"
         }`}
       >
         <div className="max-w-6xl mx-auto w-full">
@@ -529,7 +535,7 @@ export default function Home() {
       <section
         id="contact"
         className={`min-h-screen flex items-center py-20 px-6 lg:px-8 ${
-          theme === "light" ? "bg-gray-50" : "bg-zinc-950"
+          theme === "light" ? "bg-amber-50" : "bg-zinc-950"
         }`}
       >
         <div className="max-w-6xl mx-auto w-full">
@@ -722,121 +728,41 @@ export default function Home() {
                   Contact Information
                 </h3>
                 <div className="space-y-4">
-                  <a
-                    href="mailto:your.email@example.com"
-                    className="flex items-center space-x-4 group"
-                  >
-                    <div
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        theme === "light" ? "bg-gray-100" : "bg-zinc-800"
-                      }`}
-                    >
-                      <span className="text-xl">✉</span>
-                    </div>
-                    <div>
-                      <div
-                        className={`text-sm ${
-                          theme === "light" ? "text-gray-500" : "text-gray-400"
-                        }`}
+                  {["bishwo9898@gmail.com", "bishwo.dallakoti@centre.edu"].map(
+                    (contactEmail) => (
+                      <a
+                        key={contactEmail}
+                        href={`mailto:${contactEmail}`}
+                        className="flex items-center space-x-4 group"
                       >
-                        Email
-                      </div>
-                      <div
-                        className={`font-medium ${
-                          theme === "light" ? "text-gray-900" : "text-white"
-                        }`}
-                      >
-                        your.email@example.com
-                      </div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="tel:+1234567890"
-                    className="flex items-center space-x-4 group"
-                  >
-                    <div
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        theme === "light" ? "bg-gray-100" : "bg-zinc-800"
-                      }`}
-                    >
-                      <span className="text-xl">📱</span>
-                    </div>
-                    <div>
-                      <div
-                        className={`text-sm ${
-                          theme === "light" ? "text-gray-500" : "text-gray-400"
-                        }`}
-                      >
-                        Phone
-                      </div>
-                      <div
-                        className={`font-medium ${
-                          theme === "light" ? "text-gray-900" : "text-white"
-                        }`}
-                      >
-                        +1 (234) 567-890
-                      </div>
-                    </div>
-                  </a>
-
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        theme === "light" ? "bg-gray-100" : "bg-zinc-800"
-                      }`}
-                    >
-                      <span className="text-xl">📍</span>
-                    </div>
-                    <div>
-                      <div
-                        className={`text-sm ${
-                          theme === "light" ? "text-gray-500" : "text-gray-400"
-                        }`}
-                      >
-                        Location
-                      </div>
-                      <div
-                        className={`font-medium ${
-                          theme === "light" ? "text-gray-900" : "text-white"
-                        }`}
-                      >
-                        New York, USA
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Links Card */}
-              <div
-                className={`rounded-2xl p-8 border ${
-                  theme === "light"
-                    ? "bg-white border-gray-200"
-                    : "bg-zinc-900 border-zinc-800"
-                }`}
-              >
-                <h3
-                  className={`text-2xl font-semibold mb-6 ${
-                    theme === "light" ? "text-gray-900" : "text-white"
-                  }`}
-                >
-                  Connect With Me
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {["💻", "📘", "🐙", "🐦"].map((icon) => (
-                    <a
-                      key={icon}
-                      href="#"
-                      className={`flex items-center justify-center h-14 rounded-lg font-medium transition-all hover:scale-[1.02] ${
-                        theme === "light"
-                          ? "bg-gray-100 hover:bg-gray-200"
-                          : "bg-zinc-800 hover:bg-zinc-700"
-                      }`}
-                    >
-                      <span className="text-2xl">{icon}</span>
-                    </a>
-                  ))}
+                        <div
+                          className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                            theme === "light" ? "bg-gray-100" : "bg-zinc-800"
+                          }`}
+                        >
+                          <span className="text-xl">✉</span>
+                        </div>
+                        <div>
+                          <div
+                            className={`text-sm ${
+                              theme === "light"
+                                ? "text-gray-500"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            Email
+                          </div>
+                          <div
+                            className={`font-medium ${
+                              theme === "light" ? "text-gray-900" : "text-white"
+                            }`}
+                          >
+                            {contactEmail}
+                          </div>
+                        </div>
+                      </a>
+                    ),
+                  )}
                 </div>
               </div>
 
@@ -892,9 +818,6 @@ export default function Home() {
         }`}
       >
         <div className="max-w-6xl mx-auto">
-          <p className="font-medium mb-2">
-            Made with ❤️ by Bishwo Biraj Dallakoti
-          </p>
           <p className="text-sm">
             © 2024 All rights reserved. Always learning, always building.
           </p>
