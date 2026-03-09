@@ -22,8 +22,9 @@ export function LampToggle() {
       {/* Dark overlay above bulb - only in light mode */}
       {isLightMode && (
         <div
-          className="fixed inset-x-0 top-0 pointer-events-none"
+          className="absolute inset-x-0 pointer-events-none"
           style={{
+            top: 0,
             height: `${bulbScreenY}px`,
             background:
               "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 20%, rgba(0,0,0,0.68) 35%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.38) 65%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0.08) 88%, rgba(0,0,0,0) 100%)",
@@ -33,59 +34,71 @@ export function LampToggle() {
         ></div>
       )}
 
-      <div className="fixed -top-12 left-[calc(50%-28px)] z-40 pointer-events-none isolate">
-        {/* Light exists only in light mode and is sourced from bulb center */}
-        {isLightMode && (
-          <>
-            <div
-              className="fixed left-1/2 -translate-x-1/2 pointer-events-none"
-              style={{
-                top: `${bulbScreenY + 12}px`,
-                width: "min(94vw, 1280px)",
-                height: "84vh",
-                background:
-                  "radial-gradient(ellipse 54% 88% at 50% 0%, rgba(255,243,192,0.58) 0%, rgba(255,224,155,0.36) 16%, rgba(255,205,125,0.2) 38%, rgba(255,192,102,0.1) 58%, rgba(255,180,92,0) 100%)",
-                filter: "blur(16px)",
-                animation: "beamBreath 3.1s ease-in-out infinite",
-              }}
-            ></div>
-          </>
-        )}
+      {/* Light beam - only in light mode */}
+      {isLightMode && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            left: `calc(50% - min(94vw, 1280px) / 2)`,
+            top: `${bulbScreenY + 12}px`,
+            width: "min(94vw, 1280px)",
+            height: "84vh",
+            background:
+              "radial-gradient(ellipse 54% 88% at 50% 0%, rgba(255,243,192,0.58) 0%, rgba(255,224,155,0.36) 16%, rgba(255,205,125,0.2) 38%, rgba(255,192,102,0.1) 58%, rgba(255,180,92,0) 100%)",
+            filter: "blur(16px)",
+            animation: "beamBreath 3.1s ease-in-out infinite",
+            zIndex: 38,
+          }}
+        ></div>
+      )}
 
-        {/* Smooth curved cone light - only in dark mode */}
-        {!isLightMode && (
-          <>
-            <div
-              className="fixed left-1/2 -translate-x-1/2 pointer-events-none"
-              style={{
-                top: `${bulbScreenY + 14}px`,
-                width: "min(124vw, 3000px)",
-                height: "80vh",
-                background:
-                  "radial-gradient(ellipse 80% 176% at 50% 0%, rgba(255,242,190,0.34) 0%, rgba(255,222,148,0.22) 24%, rgba(255,202,116,0.11) 48%, rgba(255,186,96,0.03) 66%, rgba(255,186,96,0) 100%)",
-                filter: "blur(16px)",
-                animation: "none",
-              }}
-            ></div>
-            <div
-              className="fixed left-1/2 -translate-x-1/2 pointer-events-none"
-              style={{
-                top: `${bulbScreenY + 20}px`,
-                width: "min(84vw, 1800px)",
-                height: "76vh",
-                background:
-                  "radial-gradient(ellipse 70% 166% at 50% 0%, rgba(255,238,180,0.28) 0%, rgba(255,216,140,0.17) 30%, rgba(255,198,114,0.07) 56%, rgba(255,186,96,0) 100%)",
-                filter: "blur(12px)",
-                animation: "none",
-              }}
-            ></div>
-          </>
-        )}
+      {/* Smooth curved cone lights - only in dark mode */}
+      {!isLightMode && (
+        <>
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              left: `calc(50% - min(124vw, 3000px) / 2)`,
+              top: `${bulbScreenY + 14}px`,
+              width: "min(124vw, 3000px)",
+              height: "80vh",
+              background:
+                "radial-gradient(ellipse 80% 176% at 50% 0%, rgba(255,242,190,0.34) 0%, rgba(255,222,148,0.22) 24%, rgba(255,202,116,0.11) 48%, rgba(255,186,96,0.03) 66%, rgba(255,186,96,0) 100%)",
+              filter: "blur(16px)",
+              animation: "none",
+              zIndex: 38,
+            }}
+          ></div>
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              left: `calc(50% - min(84vw, 1800px) / 2)`,
+              top: `${bulbScreenY + 20}px`,
+              width: "min(84vw, 1800px)",
+              height: "76vh",
+              background:
+                "radial-gradient(ellipse 70% 166% at 50% 0%, rgba(255,238,180,0.28) 0%, rgba(255,216,140,0.17) 30%, rgba(255,198,114,0.07) 56%, rgba(255,186,96,0) 100%)",
+              filter: "blur(12px)",
+              animation: "none",
+              zIndex: 39,
+            }}
+          ></div>
+        </>
+      )}
 
+      {/* Bulb SVG wrapper */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "-3rem",
+          left: "calc(50% - 28px)",
+          zIndex: 40,
+        }}
+      >
         {/* Hanging string from top */}
         <svg
           viewBox="0 0 100 300"
-          className="w-14 h-80 relative z-10"
+          className="w-14 h-80"
           style={{
             filter: isLightMode
               ? "drop-shadow(0 0 8px rgba(255, 200, 80, 0.3))"
