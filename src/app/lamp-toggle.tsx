@@ -93,6 +93,10 @@ export function LampToggle() {
           top: "-3rem",
           left: "calc(50% - 28px)",
           zIndex: 40,
+          transformOrigin: "top center",
+          animation: isAnimating
+            ? "none"
+            : "bulbSwingHint 5s ease-in-out infinite",
         }}
       >
         {/* Hanging string from top */}
@@ -259,6 +263,34 @@ export function LampToggle() {
             }
             75% {
               opacity: 0.88;
+            }
+          }
+          @keyframes bulbSwingHint {
+            0%,
+            60%,
+            100% {
+              transform: rotate(0deg);
+            }
+            65% {
+              transform: rotate(-11deg);
+            }
+            71% {
+              transform: rotate(8deg);
+            }
+            76% {
+              transform: rotate(-5deg);
+            }
+            80% {
+              transform: rotate(3deg);
+            }
+            84% {
+              transform: rotate(-1.5deg);
+            }
+            87% {
+              transform: rotate(0.5deg);
+            }
+            90% {
+              transform: rotate(0deg);
             }
           }
         `}</style>
